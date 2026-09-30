@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#f7f6f2" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#141b18" media="(prefers-color-scheme: dark)" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="description" content="Un espacio sencillo para cuidar tus hábitos, un día a la vez." />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Ritmo" />
+    <title>Ritmo — tus hábitos, a tu ritmo</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="icons/ritmo.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icons/ritmo-180.png" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="#inicio" aria-label="Ritmo, inicio">
+          <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span>ritmo<span class="brand-dot">.</span></span>
+        </a>
+        <div class="sidebar-label">TU ESPACIO</div>
+        <nav class="main-nav" aria-label="Navegación principal">
+          <a class="nav-link" href="#inicio"><span class="nav-icon">◫</span>Mi día</a>
+          <a class="nav-link" href="#habitos"><span class="nav-icon">◷</span>Mis hábitos</a>
+          <a class="nav-link" href="#datos"><span class="nav-icon">⇩</span>Copia de seguridad</a>
+        </nav>
+        <div class="sidebar-note">
+          <span class="note-spark">✳</span>
+          <p>Los pequeños pasos también te llevan lejos.</p>
+          <span class="note-caption">UN DÍA A LA VEZ</span>
+        </div>
+        <div class="sidebar-footer"><span class="avatar">T</span><span><strong>Tu espacio personal</strong><small>Solo en este dispositivo</small></span></div>
+      </aside>
+
+      <main class="main-content" id="inicio">
+        <header class="topbar">
+          <div class="mobile-brand"><span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span> ritmo<span class="brand-dot">.</span></div>
+          <div class="today-chip"><span class="today-dot"></span><span id="today-label"></span></div>
+        </header>
+
+        <section class="welcome-row">
+          <div>
+            <p class="eyebrow">TU PROGRESO, A TU RITMO</p>
+            <h1>Hola, <span>tú.</span> <span class="wave">✳</span></h1>
+            <p class="welcome-copy">No hace falta hacerlo todo. Solo empezar por hoy.</p>
+          </div>
+          <button class="primary-button" id="add-habit-top" aria-label="Añadir hábito"><span>＋</span> Añadir hábito</button>
+        </section>
+
+        <section class="summary-grid" aria-label="Resumen del día">
+          <article class="summary-card progress-card">
+            <div class="summary-top"><span class="summary-label" id="progress-label">PROGRESO DE HOY</span><span class="summary-icon progress-icon">↗</span></div>
+            <div class="progress-content"><strong id="progress-value">0%</strong><span id="progress-caption">Un paso a la vez</span></div>
+            <div class="progress-track"><span id="progress-bar"></span></div>
+          </article>
+          <article class="summary-card">
+            <div class="summary-top"><span class="summary-label">COMPLETADOS</span><span class="summary-icon check-icon">✓</span></div>
+            <div class="metric-content"><strong id="completed-value">0 <small>/ 0</small></strong><span id="completed-caption">hoy</span></div>
+          </article>
+          <article class="summary-card">
+            <div class="summary-top"><span class="summary-label">MEJOR RACHA ACTUAL</span><span class="summary-icon flame-icon">✳</span></div>
+            <div class="metric-content"><strong id="streak-value">0 <small>días</small></strong><span id="streak-name">Tu constancia empieza hoy</span></div>
+          </article>
+        </section>
+
+        <section class="habits-section" id="habitos">
+          <div class="section-heading">
+            <div><p class="eyebrow">UN POCO CADA DÍA</p><h2>Tus hábitos</h2></div>
+            <button class="text-button" id="reset-day" title="Desmarcar todos los hábitos del día seleccionado">Reiniciar día <span>↺</span></button>
+          </div>
+
+          <div class="week-nav">
+            <button class="week-arrow" id="week-prev" type="button" aria-label="Semana anterior">‹</button>
+            <span class="week-label" id="week-label">Esta semana</span>
+            <button class="week-arrow" id="week-next" type="button" aria-label="Semana siguiente">›</button>
+          </div>
+          <div class="week-strip" id="week-strip" aria-label="Seleccionar día"></div>
+
+          <div class="past-banner" id="past-banner" hidden>
+            <span id="past-label"></span>
+            <button class="text-button strong" id="back-to-today" type="button">Volver a hoy →</button>
+          </div>
+
+          <div class="habit-list" id="habit-list"></div>
+          <p class="habit-tip">Toca el nombre de un hábito para editarlo, reordenarlo o eliminarlo.</p>
+          <button class="add-habit-card" id="add-habit-bottom"><span class="add-circle">＋</span><span><strong>¿Quieres sumar otro hábito?</strong><small>Haz espacio para algo que te importa.</small></span><span class="add-arrow">↗</span></button>
+        </section>
+
+        <section class="data-section" id="datos">
+          <div>
+            <p class="eyebrow">TUS DATOS</p>
+            <h2>Copia de seguridad</h2>
+            <p class="data-copy">Tus hábitos viven solo en este dispositivo. Descarga una copia de vez en cuando para no perder tu historial.</p>
+          </div>
+          <div class="data-actions">
+            <button class="secondary-button" id="export-data" type="button">Descargar copia</button>
+            <button class="secondary-button" id="import-data" type="button">Restaurar copia</button>
+            <input type="file" id="import-file" accept="application/json,.json" hidden />
+          </div>
+        </section>
+
+        <footer class="page-footer"><span>Hecho con calma, un día a la vez.</span><span id="footer-date"></span></footer>
+      </main>
+    </div>
+
+    <dialog class="habit-dialog" id="habit-dialog">
+      <form id="habit-form">
+        <button class="dialog-close" id="dialog-close" type="button" aria-label="Cerrar">×</button>
+        <p class="eyebrow" id="dialog-eyebrow">UN PEQUEÑO COMPROMISO</p>
+        <h2 id="dialog-title">Añade un hábito</h2>
+        <p class="dialog-copy" id="dialog-copy">Elige algo que quieras cuidar día a día.</p>
+        <label for="habit-name">Nombre del hábito</label>
+        <input id="habit-name" name="name" maxlength="40" placeholder="Por ejemplo: salir a caminar" autocomplete="off" required />
+        <label for="habit-hint">Nota corta <span class="optional">(opcional)</span></label>
+        <input id="habit-hint" name="hint" maxlength="50" placeholder="Por ejemplo: 20 minutos al aire libre" autocomplete="off" />
+        <label>Elige un símbolo</label>
+        <div class="icon-choices" id="icon-choices">
+          <button type="button" class="icon-choice selected" data-icon="✳" aria-label="Estrella">✳</button>
+          <button type="button" class="icon-choice" data-icon="◉" aria-label="Círculo">◉</button>
+          <button type="button" class="icon-choice" data-icon="♡" aria-label="Corazón">♡</button>
+          <button type="button" class="icon-choice" data-icon="↗" aria-label="Progreso">↗</button>
+          <button type="button" class="icon-choice" data-icon="☼" aria-label="Sol">☼</button>
+          <button type="button" class="icon-choice" data-icon="♫" aria-label="Música">♫</button>
+          <button type="button" class="icon-choice" data-icon="❋" aria-label="Flor">❋</button>
+          <button type="button" class="icon-choice" data-icon="☾" aria-label="Luna">☾</button>
+          <button type="button" class="icon-choice" data-icon="✎" aria-label="Lápiz">✎</button>
+          <button type="button" class="icon-choice" data-icon="◈" aria-label="Diamante">◈</button>
+        </div>
+        <input type="hidden" id="habit-icon" value="✳" />
+        <div class="move-controls" id="move-controls" hidden>
+          <span>Orden en la lista</span>
+          <button type="button" class="secondary-button small" id="move-up">↑ Subir</button>
+          <button type="button" class="secondary-button small" id="move-down">↓ Bajar</button>
+        </div>
+        <button class="primary-button dialog-submit" type="submit"><span id="dialog-submit-label">Crear hábito</span> <span>→</span></button>
+        <button class="danger-button" id="delete-habit" type="button" hidden>Eliminar hábito</button>
+      </form>
+    </dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
